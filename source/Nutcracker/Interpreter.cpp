@@ -496,9 +496,9 @@ Interpreter::~Interpreter()
 {
 }
 
-bool Interpreter::hasDebuggerRunning() const
+bool Interpreter::debuggerIsRunning() const
 {
-	return m_hasDebuggerRunning;
+	return m_debuggerIsRunning;
 }
 
 bool Interpreter::launch(const Variables& variables, const UTF8String& file)
@@ -521,7 +521,7 @@ std::shared_ptr<DebugSession> Interpreter::launchDebug(const Variables& variable
 {
 	auto session = std::make_shared<DebugSession>();
 
-	if (!m_hasDebuggerRunning)
+	if (!debuggerIsRunning())
 	{
 		auto cwd = wxGetCwd();
 		auto cmd = variables.replace(m_launchDebug);
@@ -554,7 +554,7 @@ std::unique_ptr<Interpreter> Interpreter::init(const UTF8String& cfgFile)
 	auto inter = std::make_unique<Interpreter>();
 	auto cfgGeneral = file.getSection("General");
 
-	inter->m_hasDebuggerRunning = file.getValue<bool>("General", "debugger_running", false);
+	inter->m_debuggerIsRunning = file.getValue<bool>("General", "debugger_is_running", false);
 	inter->m_name = file.getValue<const char*>("General", "name", "Unknown");
 	inter->m_launchNormal = file.getValue<const char*>("General", "launch_normal", "");
 	inter->m_launchDebug = file.getValue<const char*>("General", "launch_debug", "");

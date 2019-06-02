@@ -334,7 +334,7 @@ class Interpreter
 public:
 	Interpreter();
 	virtual ~Interpreter();
-	bool hasDebuggerRunning() const;
+	bool debuggerIsRunning() const;
 	bool launch(const Variables& variables, const UTF8String& file);
 	std::shared_ptr<DebugSession> launchDebug(const Variables& variables, const UTF8String& file, bool* cancelFlag);
 	const UTF8String& getName() const;
@@ -345,7 +345,7 @@ private:
 	static std::unique_ptr<Interpreter> init(const UTF8String& cfgFile);
 	UTF8String m_name;
 	Filename m_configFilename;
-	bool m_hasDebuggerRunning = false;
+	bool m_debuggerIsRunning = false;
 	UTF8String m_launchNormal;
 	UTF8String m_launchDebug;
 	std::string m_ip;
