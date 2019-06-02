@@ -506,12 +506,12 @@ static Variables getVariables(File* file, Interpreter* interpreter)
 		return cz::Filesystem::getSingleton().getExecutableDirectory();
 	});
 
-	vars.set("%INTERPRETER_CFG_DIR%", [interpreter]()
+	vars.set("%CFG_DIR%", [interpreter]()
 	{
 		return interpreter->getConfigFileDirectory();
 	});
 
-	vars.set("%INTERPRETER_NAME%", [interpreter]()
+	vars.set("%CFG_NAME%", [interpreter]()
 	{
 		return interpreter->getName();
 	});
@@ -716,7 +716,7 @@ const Options* Workspace::getViewOptions()
 
 void Workspace::loadInterpreters()
 {
-	m_interpreters.all = Interpreter::initAll(Filesystem::getSingleton().getExecutableDirectory() + "..\\interpreters\\");
+	m_interpreters.all = Interpreter::initAll(Filesystem::getSingleton().getExecutableDirectory() + "config\\");
 
 	m_interpreters.current = 0;
 	for (int i=0; i<(int)m_interpreters.all.size(); i++)
